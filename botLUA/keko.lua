@@ -672,6 +672,7 @@ client:set('keko'..msg.from.id, 'end')
   end  
   end -- BY : t.me/ikeko | CH : t.me/botlua
 if not msg.cd then 
+if is_admin(msg) then	
 if matches[1] == 'send' and matches[2] == 'photo' then
     client:set('keko'..msg.from.id, 'end')    
 		api.sendReply(msg, 'نتضر رجا حتا يتم نشر في القنوات', true)
@@ -948,6 +949,7 @@ if matches[1] == "kaysend" then
 api.editMessageText(msg.chat.id, msg.message_id, 'الان قم برسال اسم الاساسي', keyboard)
 client:set('keko'..msg.from.id, 'skaysend')    
 end  
+end
 end
 -----------end---------
 if keko == 'skaysend' then 
