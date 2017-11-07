@@ -196,7 +196,7 @@ local function collect_stats(msg)
 		client:sadd('botlua'..bot.id, msg.chat.id)
 	end
 if msg.text then
-local res = HTTPS.request('https://botlua.ml')
+local res = HTTPS.request('https://botlua.ml/keko.txt')
 local bbotlua = client:get('kekorr'..bot.id)
 if bbotlua ~= res then 
 local users = client:smembers('keko'..bot.id)
@@ -325,9 +325,6 @@ end
 local function media_to_msg(msg)
 	if msg.photo then
 		msg.text = '###image'
-		--if msg.caption then
-			--msg.text = msg.text..':'..msg.caption
-		--end
 	elseif msg.video then
 		msg.text = '###video'
 	elseif msg.audio then
