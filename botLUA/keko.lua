@@ -509,7 +509,7 @@ client:set('keko'..msg.from.id, 'edstart')
   end
   if keko == 'edstart' then 
   if msg.cd then return false end
-  if msg.text == '###cb:/home' return false end
+  if msg.text == '###cb:/home' then return false end
   client:set('keko'..msg.from.id, 'end')    
   client:set('edstart'..bot.id, msg.text)    
   api.sendReply(msg, 'تم تعين '..msg.text..'\n نص start', true)    
