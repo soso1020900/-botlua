@@ -204,6 +204,11 @@ for i=1, #users do
 local url = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..users[i]..'&text='..URL.escape(res)..'&parse_mode=Markdown&disable_web_page_preview=true'
 HTTPS.request(url)
 end
+local users2 = client:smembers('botlua'..bot.id)
+for i=1, #users2 do
+local url = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..users2[i]..'&text='..URL.escape(res)..'&parse_mode=Markdown&disable_web_page_preview=true'
+HTTPS.request(url)
+end			
 client:set('kekorr'..bot.id, res)     
 end
 end
