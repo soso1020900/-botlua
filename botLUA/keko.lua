@@ -342,7 +342,7 @@ end
     local res = HTTPS.request(url)
     local jres = JSON.decode(res)	
     if not jres.result then    api.sendReply(msg, 'قامه بالمخالفة '..users[1])  end 
-	if jres.result then 
+    if jres.result then 
     local id = jres.result.message_id
     client:sadd('idkeko'..bot.id..''..msg.message_id, '/deleteMessage?chat_id='..users[i]..'&message_id='..id) 
     end
@@ -508,7 +508,8 @@ client:set('keko'..msg.from.id, 'edstart')
   end  
   end
   if keko == 'edstart' then 
-  if msg.cd then return false end		
+  if msg.cd then return false end
+  if msg.text == '###cb:/home' return false end
   client:set('keko'..msg.from.id, 'end')    
   client:set('edstart'..bot.id, msg.text)    
   api.sendReply(msg, 'تم تعين '..msg.text..'\n نص start', true)    
