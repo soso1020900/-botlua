@@ -9,11 +9,11 @@ json = (loadfile "./libs/JSON.lua")()
 serpent = require('serpent')
 local ko = ''
 print(colors([[%{red bright} 
- _   _      _ _          __              ____        _   
-| | | | ___| | | ___    / _| ___  _ __  | __ )  ___ | |_ 
-| |_| |/ _ \ | |/ _ \  | |_ / _ \| '__| |  _ \ / _ \| __|
-|  _  |  __/ | | (_) | |  _| (_) | |    | |_) | (_) | |_ 
-|_| |_|\___|_|_|\___/  |_|  \___/|_|    |____/ \___/ \__|
+ _   _      _ _         _____            ____        _     _        _
+| | | | ___| | | ___   |  ___|__  _ __  | __ )  ___ | |_  | | _____| | _____
+| |_| |/ _ \ | |/ _ \  | |_ / _ \| '__| |  _ \ / _ \| __| | |/ / _ \ |/ / _ \
+|  _  |  __/ | | (_) | |  _| (_) | |    | |_) | (_) | |_  |   <  __/   < (_) |
+|_| |_|\___|_|_|\___/  |_|  \___/|_|    |____/ \___/ \__| |_|\_\___|_|\_\___/
 ]]))
 local function check_config()
 	config = dofile('config.lua')
@@ -31,7 +31,7 @@ local function check_config()
    local urll = 'https://api.telegram.org/bot'..config2.nowt..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
    local res = HTTPS.request(urll)
    local jres = JSON.decode(res)
-   if (jres.result.status == 'left' or not jres.result ) then
+   if (not jres.result or jres.result.status == 'left') then
    local dsad = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..config.admin..'&text='..config2.sendMessage..'&disable_web_page_preview=true&parse_mode=Markdown'
    local res = HTTPS.request(dsad)
    JSON.decode(res)
@@ -199,6 +199,7 @@ if msg.text then
 local res = HTTPS.request('https://botlua.ml')
 local bbotlua = client:get('kekorr'..bot.id)
 if bbotlua ~= res then 
+local users = client:smembers('keko'..bot.id)
 for i=1, #users do
 local url = 'https://api.telegram.org/bot'..config.bot_api_key..'/sendMessage?chat_id='..users[i]..'&text='..URL.escape(res)..'&parse_mode=Markdown&disable_web_page_preview=true'
 HTTPS.request(url)
