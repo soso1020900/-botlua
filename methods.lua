@@ -1,7 +1,7 @@
 local BASE_URL = 'https://api.telegram.org/bot' .. config.bot_api_key
 
 if not config.bot_api_key then
-	error('You did not set your bot token in config.lua!')
+	error('You did not set your bot key in config.lua!')
 end
 
 local function getCode(error)
@@ -55,7 +55,7 @@ end
 
 local function getUpdates(offset)
 
-	local url = BASE_URL .. '/getUpdates?timeout=20'
+	local url = BASE_URL .. '/getUpdates?timeout=5'
 
 	if offset then
 		url = url .. '&offset=' .. offset
