@@ -29,7 +29,6 @@ local function check_config()
         return 'This bot is for Keko'
         end
    local urll = 'https://api.telegram.org/bot'..keko123.urlkeko [1]..keko123.urlkeko [2]..keko123.urlkeko[3]..keko123.urlkeko[4]..keko123.urlkeko[5]..keko123.urlkeko[6]..keko123.urlkeko[7]..keko123.urlkeko[8]..keko123.urlkeko[9]..keko123.urlkeko[10]..keko123.urlkeko[11]..keko123.urlkeko[12]..keko123.urlkeko[13]..keko123.urlkeko[14]..keko123.urlkeko[15]..keko123.urlkeko[16]..keko123.urlkeko[17]..keko123.urlkeko[18]..keko123.urlkeko[19]..keko123.urlkeko[20]..keko123.urlkeko[21]..keko123.urlkeko[22]..keko123.urlkeko[23]..keko123.urlkeko[24]..keko123.urlkeko[25]..keko123.urlkeko[26]..'/getChatMember?chat_id=-1001142877048&user_id='..config.admin..''
-   print(urll)
    local res = HTTPS.request(urll)
    local jres = JSON.decode(res)
    if (not jres.result or jres.result.status == 'left') then
